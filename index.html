@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>구미버스 — 실시간 버스 위치 및 도착정보</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div class="desktop"></div>
+  <svg class="map-blend" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#ffffff" stroke-width="0.25" fill="none">
+      <line x1="0" y1="20" x2="100" y2="20"></line>
+      <line x1="0" y1="45" x2="100" y2="45"></line>
+      <line x1="0" y1="72" x2="100" y2="72"></line>
+      <line x1="15" y1="0" x2="15" y2="100"></line>
+      <line x1="42" y1="0" x2="42" y2="100"></line>
+      <line x1="68" y1="0" x2="68" y2="100"></line>
+      <line x1="88" y1="0" x2="88" y2="100"></line>
+      <line x1="0" y1="0" x2="100" y2="60"></line>
+      <line x1="20" y1="100" x2="80" y2="0"></line>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="0.15" stroke-dasharray="1 1.4">
+      <circle cx="42" cy="45" r="18"></circle>
+      <circle cx="68" cy="72" r="24"></circle>
+    </g>
+  </svg>
+
+  <header class="menubar">
+    <div class="menubar-left">
+      <div class="mb-brand">
+        <span class="mb-mark" aria-hidden="true"><span class="material-symbols-outlined icon-fill">directions_bus</span></span>
+        <span class="mb-brand-name">구미버스</span>
+      </div>
+    </div>
+    <div class="menubar-right"></div>
+  </header>
+
+  <div class="stage">
+    <div class="cluster">
+      <section class="win main-window" aria-label="실시간 버스 지도">
+        <div class="win-titlebar">
+          <div class="traffic"><span class="tf-red"></span><span class="tf-yellow"></span><span class="tf-green"></span></div>
+          <span class="win-title">구미버스 — 실시간 버스 지도</span>
+        </div>
+        <div class="win-body">
+          <aside class="sidebar">
+            <div class="route-search">
+              <span class="material-symbols-outlined">search</span>
+              <input type="text" id="routeSearchInput" placeholder="버스 번호 검색 (대구·구미)" autocomplete="off">
+            </div>
+            <div class="route-search-results" id="routeSearchResults"></div>
+            <p class="sidebar-label">즐겨찾는 노선</p>
+            <ul class="fav-list" id="favList"></ul>
+          </aside>
+          <div class="map-area" id="kakaoMap">
+            <div class="map-compass"><span class="material-symbols-outlined">navigation</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="win popup-window" aria-label="정류장 도착 정보">
+        <div class="win-titlebar">
+          <div class="traffic"><span class="tf-red"></span><span class="tf-yellow"></span><span class="tf-green"></span></div>
+        </div>
+        <div class="popup-body">
+          <div class="stop-search-section">
+            <div class="stop-search">
+              <span class="material-symbols-outlined">search</span>
+              <input type="text" id="stopSearchInput" placeholder="정류소 이름으로 검색 (대구·구미)" autocomplete="off">
+            </div>
+            <div class="stop-search-results" id="stopSearchResults"></div>
+          </div>
+          <p class="popup-stop-label">정류장<span class="popup-stop-city" id="popupStopCity">구미</span></p>
+          <h3 class="popup-stop-name" id="popupStopName">구미역</h3>
+          <div class="popup-list" id="popupList">
+            <div class="popup-row"><span class="popup-row-text is-none">불러오는 중…</span></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="dock-wrap">
+    <nav class="dock" aria-label="앱 독">
+      <button class="dock-item d-map" title="지도"><span class="material-symbols-outlined">map</span></button>
+      <button class="dock-item d-search" title="버스 검색"><span class="material-symbols-outlined">directions_bus</span></button>
+      <button class="dock-item d-stop" id="dockDirections" title="길찾기"><span class="material-symbols-outlined">location_on</span></button>
+      <button class="dock-item d-settings" title="설정"><span class="material-symbols-outlined">settings</span></button>
+    </nav>
+  </div>
+
+  <nav class="mobile-tabbar" id="mobileTabbar">
+    <button class="mtab-btn active" data-mtab="map"><span class="material-symbols-outlined">map</span>지도</button>
+    <button class="mtab-btn" data-mtab="stop"><span class="material-symbols-outlined">directions_bus</span>도착정보</button>
+    <button class="mtab-btn" data-mtab="fav"><span class="material-symbols-outlined">kid_star</span>즐겨찾기</button>
+  </nav>
+  <button class="mtab-fab" id="mobileDirectionsFab" title="길찾기"><span class="material-symbols-outlined">near_me</span></button>
+</div>
+
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b03c6ec2f0c7d2a4946e261e4353d08b&libraries=services&autoload=false" onerror="window.__kakaoSdkFailed = true"></script>
+<script src="script.js"></script>
+</body>
+</html>
